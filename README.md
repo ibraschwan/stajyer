@@ -80,17 +80,33 @@ No database. State lives in markdown files. Git-trackable. Human-readable.
 
 ## How It Compares
 
-| Feature | You Today | Stajyer | Paperclip | Devin |
-|---------|-----------|---------|-----------|-------|
-| Setup | 0 min | 5 min | 15+ min | Managed |
-| "Continue" needed | Yes (20+/hr) | No | No | No |
-| File conflicts | Constant | Never | Never | N/A |
-| Change protection | None | Ownership guard | DB permissions | Sandboxed |
-| State format | N/A | Markdown (git) | Postgres (35+ tables) | Cloud |
-| Database required | No | **No** | Yes | N/A |
-| Open source | — | **MIT** | MIT | No |
-| Agent support | 1 type | **Any CLI agent** | Any CLI agent | Devin only |
-| Cost | Free | **Free** | Free (self-hosted) | $500/mo |
+### Multi-Agent Orchestrators
+
+| Feature | Stajyer | Paperclip | Stripe Minions | CrewAI | LangGraph |
+|---------|---------|-----------|----------------|--------|-----------|
+| Open source | **MIT** | MIT | No | MIT | MIT |
+| Setup time | **5 min** | 15+ min | Years (internal) | 30+ min | 1+ hour |
+| Auto-continue | **Yes** | Heartbeat | Yes | Built-in | Built-in |
+| File conflict prevention | **Ownership guard** | DB permissions | Isolated devboxes | No | No |
+| Database required | **No** | Postgres (35+ tables) | Internal | No | Optional |
+| State format | **Markdown (git)** | Postgres | Internal DB | Python objects | State graph |
+| Agent runtime | **Any CLI agent** | Any CLI agent | Goose fork | CrewAI only | LangChain only |
+| Coding-specific | **Yes** | Yes | Yes | General purpose | General purpose |
+| Available to public | **Yes** | Self-hosted | No | Yes | Yes |
+
+### Single AI Agents (what Stajyer orchestrates)
+
+| Agent | By | Open Source | Stajyer Adapter |
+|-------|-----|-----------|-----------------|
+| Claude Code | Anthropic | Source-available | **Supported** |
+| Codex CLI | OpenAI | Apache 2.0 | **Supported** |
+| Cursor | Anysphere | No | **Supported** |
+| Aider | Paul Gauthier | Apache 2.0 | Planned |
+| Cline | Community | Apache 2.0 | Planned |
+| OpenHands | All Hands AI | MIT | Planned |
+| Goose | Block | Apache 2.0 | Planned |
+
+> Stajyer doesn't replace these agents — it orchestrates them. Run 3 Claude Code instances, or mix Claude Code + Codex + Cursor on the same project.
 
 ## The Experiment
 

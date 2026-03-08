@@ -380,65 +380,105 @@ $ stajyer task "Write API tests" --to backend
 
       {/* ─── Comparison ─── */}
       <section id="comparison" className="py-24 px-6">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4">
             How it compares
           </h2>
-          <p className="text-muted text-center mb-16 max-w-lg mx-auto">
-            Paperclip uses 35+ Postgres tables. We use markdown files.
+          <p className="text-muted text-center mb-6 max-w-2xl mx-auto">
+            Most tools are single AI agents. Only a few orchestrate multiple agents simultaneously.
+            Stajyer is the lightweight option that doesn&apos;t need a database.
+          </p>
+          <p className="text-xs text-muted text-center mb-16">
+            Data sourced from public documentation, repos, and pricing pages. Last updated March 2026.
           </p>
 
-          <div className="overflow-x-auto rounded-xl border border-card-border">
+          {/* Multi-agent orchestrators */}
+          <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+            <span className="text-accent">&#9632;</span> Multi-Agent Orchestrators
+            <span className="text-xs text-muted font-normal ml-2">— tools that coordinate multiple agents</span>
+          </h3>
+          <div className="overflow-x-auto rounded-xl border border-card-border mb-12">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-card-border bg-card-bg">
-                  <th className="text-left p-4 font-mono text-muted font-normal">
-                    Feature
-                  </th>
-                  <th className="text-left p-4 font-mono text-muted font-normal">
-                    You Today
-                  </th>
-                  <th className="text-left p-4 font-mono text-accent font-semibold">
-                    Stajyer
-                  </th>
-                  <th className="text-left p-4 font-mono text-muted font-normal">
-                    Paperclip
-                  </th>
+                  <th className="text-left p-4 font-mono text-muted font-normal whitespace-nowrap">Feature</th>
+                  <th className="text-left p-4 font-mono text-accent font-semibold whitespace-nowrap">Stajyer</th>
+                  <th className="text-left p-4 font-mono text-muted font-normal whitespace-nowrap">Paperclip</th>
+                  <th className="text-left p-4 font-mono text-muted font-normal whitespace-nowrap">Stripe Minions</th>
+                  <th className="text-left p-4 font-mono text-muted font-normal whitespace-nowrap">CrewAI</th>
+                  <th className="text-left p-4 font-mono text-muted font-normal whitespace-nowrap">LangGraph</th>
                 </tr>
               </thead>
-              <tbody className="font-mono">
-                {[
-                  ["Setup", "0 min", "5 min", "15+ min"],
-                  ['"Continue" needed', "Yes (20+/hr)", "No", "No"],
-                  ["File conflicts", "Constant", "Never", "Never"],
-                  [
-                    "Change protection",
-                    "None",
-                    "Ownership guard",
-                    "DB permissions",
-                  ],
-                  ["State format", "N/A", "Markdown (git)", "Postgres"],
-                  ["Database required", "No", "No", "Yes (35+ tables)"],
-                  [
-                    "Agent support",
-                    "1 type",
-                    "Any CLI agent",
-                    "Any CLI agent",
-                  ],
-                ].map(([feature, you, stajyer, paperclip], i) => (
-                  <tr
-                    key={i}
-                    className="border-b border-card-border last:border-0"
-                  >
-                    <td className="p-4 text-foreground">{feature}</td>
-                    <td className="p-4 text-muted">{you}</td>
-                    <td className="p-4 text-accent">{stajyer}</td>
-                    <td className="p-4 text-muted">{paperclip}</td>
+              <tbody className="font-mono text-xs sm:text-sm">
+                {([
+                  ["Open source", "MIT", "MIT", "No", "MIT", "MIT"],
+                  ["Setup time", "5 min", "15+ min", "Years (internal)", "30+ min", "1+ hour"],
+                  ["Auto-continue", "Yes", "Yes (heartbeat)", "Yes", "Built-in", "Built-in"],
+                  ["File conflict prevention", "Ownership guard", "DB permissions", "Isolated devboxes", "No", "No"],
+                  ["Database required", "No", "Postgres (35+ tables)", "Internal", "No", "Optional"],
+                  ["State format", "Markdown (git)", "Postgres", "Internal DB", "Python objects", "State graph"],
+                  ["Agent runtime", "Any CLI agent", "Any CLI agent", "Goose fork", "CrewAI agents only", "LangChain only"],
+                  ["Coding-specific", "Yes", "Yes", "Yes", "General purpose", "General purpose"],
+                  ["Available to public", "Yes", "Yes (self-hosted)", "No", "Yes", "Yes"],
+                  ["Cost", "Free", "Free (self-hosted)", "N/A", "Free / Enterprise", "Free / Plus"],
+                ] as const).map(([feature, ...cols], i) => (
+                  <tr key={i} className="border-b border-card-border last:border-0">
+                    <td className="p-3 sm:p-4 text-foreground whitespace-nowrap">{feature}</td>
+                    <td className="p-3 sm:p-4 text-accent whitespace-nowrap">{cols[0]}</td>
+                    {cols.slice(1).map((val, j) => (
+                      <td key={j} className="p-3 sm:p-4 text-muted whitespace-nowrap">{val}</td>
+                    ))}
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
+
+          {/* Single agents */}
+          <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+            <span className="text-muted">&#9632;</span> Single AI Coding Agents
+            <span className="text-xs text-muted font-normal ml-2">— tools Stajyer orchestrates</span>
+          </h3>
+          <div className="overflow-x-auto rounded-xl border border-card-border">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-card-border bg-card-bg">
+                  <th className="text-left p-4 font-mono text-muted font-normal whitespace-nowrap">Agent</th>
+                  <th className="text-left p-4 font-mono text-muted font-normal whitespace-nowrap">By</th>
+                  <th className="text-left p-4 font-mono text-muted font-normal whitespace-nowrap">Type</th>
+                  <th className="text-left p-4 font-mono text-muted font-normal whitespace-nowrap">Open Source</th>
+                  <th className="text-left p-4 font-mono text-muted font-normal whitespace-nowrap">Multi-Agent</th>
+                  <th className="text-left p-4 font-mono text-accent font-normal whitespace-nowrap">Stajyer Adapter</th>
+                </tr>
+              </thead>
+              <tbody className="font-mono text-xs sm:text-sm">
+                {([
+                  ["Claude Code", "Anthropic", "CLI agent", "Source-available", "Subagents only", "✓ Supported"],
+                  ["Codex CLI", "OpenAI", "CLI agent", "Apache 2.0", "No", "✓ Supported"],
+                  ["Cursor", "Anysphere", "IDE agent", "No", "No", "✓ Supported"],
+                  ["Aider", "Paul Gauthier", "CLI pair programmer", "Apache 2.0", "No", "Planned"],
+                  ["Devin", "Cognition", "Cloud agent", "No", "No", "N/A (cloud)"],
+                  ["Cline", "Community", "VS Code extension", "Apache 2.0", "No", "Planned"],
+                  ["OpenHands", "All Hands AI", "Platform agent", "MIT", "No", "Planned"],
+                  ["Goose", "Block", "CLI agent", "Apache 2.0", "No", "Planned"],
+                ] as const).map(([agent, by, type, oss, multi, adapter], i) => (
+                  <tr key={i} className="border-b border-card-border last:border-0">
+                    <td className="p-3 sm:p-4 text-foreground whitespace-nowrap">{agent}</td>
+                    <td className="p-3 sm:p-4 text-muted whitespace-nowrap">{by}</td>
+                    <td className="p-3 sm:p-4 text-muted whitespace-nowrap">{type}</td>
+                    <td className="p-3 sm:p-4 text-muted whitespace-nowrap">{oss}</td>
+                    <td className="p-3 sm:p-4 text-muted whitespace-nowrap">{multi}</td>
+                    <td className="p-3 sm:p-4 text-accent whitespace-nowrap">{adapter}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <p className="text-xs text-muted text-center mt-6">
+            Stajyer doesn&apos;t replace these agents — it orchestrates them. Run 3 Claude Code instances,
+            or mix Claude Code + Codex + Cursor on the same project.
+          </p>
         </div>
       </section>
 
