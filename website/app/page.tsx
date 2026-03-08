@@ -395,7 +395,7 @@ $ stajyer task "Write API tests" --to backend
           {/* Multi-agent orchestrators */}
           <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
             <span className="text-accent">&#9632;</span> Multi-Agent Orchestrators
-            <span className="text-xs text-muted font-normal ml-2">— tools that coordinate multiple agents</span>
+            <span className="text-xs text-muted font-normal ml-2">— tools that coordinate multiple agents simultaneously</span>
           </h3>
           <div className="overflow-x-auto rounded-xl border border-card-border mb-12">
             <table className="w-full text-sm">
@@ -404,23 +404,23 @@ $ stajyer task "Write API tests" --to backend
                   <th className="text-left p-4 font-mono text-muted font-normal whitespace-nowrap">Feature</th>
                   <th className="text-left p-4 font-mono text-accent font-semibold whitespace-nowrap">Stajyer</th>
                   <th className="text-left p-4 font-mono text-muted font-normal whitespace-nowrap">Paperclip</th>
+                  <th className="text-left p-4 font-mono text-muted font-normal whitespace-nowrap">Parallel Code</th>
+                  <th className="text-left p-4 font-mono text-muted font-normal whitespace-nowrap">Emdash (YC W26)</th>
+                  <th className="text-left p-4 font-mono text-muted font-normal whitespace-nowrap">Composio</th>
                   <th className="text-left p-4 font-mono text-muted font-normal whitespace-nowrap">Stripe Minions</th>
-                  <th className="text-left p-4 font-mono text-muted font-normal whitespace-nowrap">CrewAI</th>
-                  <th className="text-left p-4 font-mono text-muted font-normal whitespace-nowrap">LangGraph</th>
                 </tr>
               </thead>
               <tbody className="font-mono text-xs sm:text-sm">
                 {([
-                  ["Open source", "MIT", "MIT", "No", "MIT", "MIT"],
-                  ["Setup time", "5 min", "15+ min", "Years (internal)", "30+ min", "1+ hour"],
-                  ["Auto-continue", "Yes", "Yes (heartbeat)", "Yes", "Built-in", "Built-in"],
-                  ["File conflict prevention", "Ownership guard", "DB permissions", "Isolated devboxes", "No", "No"],
-                  ["Database required", "No", "Postgres (35+ tables)", "Internal", "No", "Optional"],
-                  ["State format", "Markdown (git)", "Postgres", "Internal DB", "Python objects", "State graph"],
-                  ["Agent runtime", "Any CLI agent", "Any CLI agent", "Goose fork", "CrewAI agents only", "LangChain only"],
-                  ["Coding-specific", "Yes", "Yes", "Yes", "General purpose", "General purpose"],
-                  ["Available to public", "Yes", "Yes (self-hosted)", "No", "Yes", "Yes"],
-                  ["Cost", "Free", "Free (self-hosted)", "N/A", "Free / Enterprise", "Free / Plus"],
+                  ["Open source", "MIT", "MIT", "Yes", "Yes", "Yes", "No (internal)"],
+                  ["Setup time", "5 min", "15+ min", "~10 min", "~10 min", "~10 min", "N/A"],
+                  ["Auto-continue", "Yes", "Yes (heartbeat)", "No", "No", "No", "Yes"],
+                  ["File conflict prevention", "Ownership guard", "DB permissions", "Git worktrees", "Git worktrees", "Git worktrees", "Isolated devboxes"],
+                  ["Task lifecycle", "Yes (queue + dispatch)", "Yes (issues + approvals)", "No", "No", "Partial", "Yes"],
+                  ["Database required", "No", "Postgres (35+ tables)", "No", "No", "No", "Internal"],
+                  ["State format", "Markdown (git)", "Postgres", "None", "None", "None", "Internal DB"],
+                  ["Cross-tool agents", "Claude + Codex + Cursor", "Claude + Codex + Cursor", "Claude + Codex + Gemini", "Any provider", "Any agent", "Goose fork only"],
+                  ["Available to public", "Yes", "Yes (self-hosted)", "Yes", "Yes", "Yes", "No"],
                 ] as const).map(([feature, ...cols], i) => (
                   <tr key={i} className="border-b border-card-border last:border-0">
                     <td className="p-3 sm:p-4 text-foreground whitespace-nowrap">{feature}</td>
@@ -434,10 +434,47 @@ $ stajyer task "Write API tests" --to backend
             </table>
           </div>
 
+          {/* Single agents with partial multi-agent */}
+          <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+            <span className="text-muted">&#9632;</span> Single Agents with Partial Multi-Agent
+            <span className="text-xs text-muted font-normal ml-2">— can run multiple instances, but only of themselves</span>
+          </h3>
+          <div className="overflow-x-auto rounded-xl border border-card-border mb-12">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-card-border bg-card-bg">
+                  <th className="text-left p-4 font-mono text-muted font-normal whitespace-nowrap">Agent</th>
+                  <th className="text-left p-4 font-mono text-muted font-normal whitespace-nowrap">Multi-Agent</th>
+                  <th className="text-left p-4 font-mono text-muted font-normal whitespace-nowrap">Cross-Tool</th>
+                  <th className="text-left p-4 font-mono text-muted font-normal whitespace-nowrap">Open Source</th>
+                  <th className="text-left p-4 font-mono text-accent font-normal whitespace-nowrap">Stajyer Adapter</th>
+                </tr>
+              </thead>
+              <tbody className="font-mono text-xs sm:text-sm">
+                {([
+                  ["Claude Code", "Agent Teams (subagents within session)", "No — Claude only", "Source-available", "✓ Supported"],
+                  ["Codex CLI", "Experimental (Agents SDK)", "No — Codex only", "Open source", "✓ Supported"],
+                  ["Cursor", "Automations (cloud agents)", "No — Cursor only", "No", "✓ Supported"],
+                  ["GitHub Copilot", "Mission Control (agent fleet)", "No — Copilot only", "No", "Planned"],
+                  ["Devin", "Parallel sessions", "No — Devin only", "No", "N/A (cloud)"],
+                  ["OpenHands", "Task delegation", "No — OpenHands only", "MIT (65k+ stars)", "Planned"],
+                ] as const).map(([agent, multi, cross, oss, adapter], i) => (
+                  <tr key={i} className="border-b border-card-border last:border-0">
+                    <td className="p-3 sm:p-4 text-foreground whitespace-nowrap">{agent}</td>
+                    <td className="p-3 sm:p-4 text-muted whitespace-nowrap">{multi}</td>
+                    <td className="p-3 sm:p-4 text-muted whitespace-nowrap">{cross}</td>
+                    <td className="p-3 sm:p-4 text-muted whitespace-nowrap">{oss}</td>
+                    <td className="p-3 sm:p-4 text-accent whitespace-nowrap">{adapter}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
           {/* Single agents */}
           <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-            <span className="text-muted">&#9632;</span> Single AI Coding Agents
-            <span className="text-xs text-muted font-normal ml-2">— tools Stajyer orchestrates</span>
+            <span className="text-muted/50">&#9632;</span> Single AI Coding Agents
+            <span className="text-xs text-muted font-normal ml-2">— powerful alone, better orchestrated with Stajyer</span>
           </h3>
           <div className="overflow-x-auto rounded-xl border border-card-border">
             <table className="w-full text-sm">
@@ -447,27 +484,23 @@ $ stajyer task "Write API tests" --to backend
                   <th className="text-left p-4 font-mono text-muted font-normal whitespace-nowrap">By</th>
                   <th className="text-left p-4 font-mono text-muted font-normal whitespace-nowrap">Type</th>
                   <th className="text-left p-4 font-mono text-muted font-normal whitespace-nowrap">Open Source</th>
-                  <th className="text-left p-4 font-mono text-muted font-normal whitespace-nowrap">Multi-Agent</th>
                   <th className="text-left p-4 font-mono text-accent font-normal whitespace-nowrap">Stajyer Adapter</th>
                 </tr>
               </thead>
               <tbody className="font-mono text-xs sm:text-sm">
                 {([
-                  ["Claude Code", "Anthropic", "CLI agent", "Source-available", "Subagents only", "✓ Supported"],
-                  ["Codex CLI", "OpenAI", "CLI agent", "Apache 2.0", "No", "✓ Supported"],
-                  ["Cursor", "Anysphere", "IDE agent", "No", "No", "✓ Supported"],
-                  ["Aider", "Paul Gauthier", "CLI pair programmer", "Apache 2.0", "No", "Planned"],
-                  ["Devin", "Cognition", "Cloud agent", "No", "No", "N/A (cloud)"],
-                  ["Cline", "Community", "VS Code extension", "Apache 2.0", "No", "Planned"],
-                  ["OpenHands", "All Hands AI", "Platform agent", "MIT", "No", "Planned"],
-                  ["Goose", "Block", "CLI agent", "Apache 2.0", "No", "Planned"],
-                ] as const).map(([agent, by, type, oss, multi, adapter], i) => (
+                  ["Aider", "Paul Gauthier", "CLI pair programmer", "Apache 2.0", "Planned"],
+                  ["Cline", "Community", "VS Code extension", "Apache 2.0 (5M+ devs)", "Planned"],
+                  ["Goose", "Block", "CLI agent", "Apache 2.0 (29k+ stars)", "Planned"],
+                  ["SWE-agent", "Princeton", "Research agent", "MIT", "Planned"],
+                  ["Continue.dev", "Continue", "IDE assistant", "Apache 2.0", "Planned"],
+                  ["Sweep", "Sweep AI", "GitHub bot", "MIT", "Planned"],
+                ] as const).map(([agent, by, type, oss, adapter], i) => (
                   <tr key={i} className="border-b border-card-border last:border-0">
                     <td className="p-3 sm:p-4 text-foreground whitespace-nowrap">{agent}</td>
                     <td className="p-3 sm:p-4 text-muted whitespace-nowrap">{by}</td>
                     <td className="p-3 sm:p-4 text-muted whitespace-nowrap">{type}</td>
                     <td className="p-3 sm:p-4 text-muted whitespace-nowrap">{oss}</td>
-                    <td className="p-3 sm:p-4 text-muted whitespace-nowrap">{multi}</td>
                     <td className="p-3 sm:p-4 text-accent whitespace-nowrap">{adapter}</td>
                   </tr>
                 ))}
@@ -475,10 +508,16 @@ $ stajyer task "Write API tests" --to backend
             </table>
           </div>
 
-          <p className="text-xs text-muted text-center mt-6">
-            Stajyer doesn&apos;t replace these agents — it orchestrates them. Run 3 Claude Code instances,
-            or mix Claude Code + Codex + Cursor on the same project.
-          </p>
+          <div className="mt-8 rounded-xl border border-accent/20 bg-accent/5 p-6 text-center">
+            <p className="text-sm text-foreground mb-2">
+              <strong>The key difference:</strong> Worktree tools (Parallel Code, Emdash) isolate agents but don&apos;t manage them.
+            </p>
+            <p className="text-xs text-muted">
+              Stajyer adds what they&apos;re missing: auto-continue (no &ldquo;continue&rdquo; bottleneck),
+              ownership guards (no file conflicts), and task lifecycle management (queue → dispatch → review).
+              All without a database.
+            </p>
+          </div>
         </div>
       </section>
 

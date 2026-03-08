@@ -82,31 +82,32 @@ No database. State lives in markdown files. Git-trackable. Human-readable.
 
 ### Multi-Agent Orchestrators
 
-| Feature | Stajyer | Paperclip | Stripe Minions | CrewAI | LangGraph |
-|---------|---------|-----------|----------------|--------|-----------|
-| Open source | **MIT** | MIT | No | MIT | MIT |
-| Setup time | **5 min** | 15+ min | Years (internal) | 30+ min | 1+ hour |
-| Auto-continue | **Yes** | Heartbeat | Yes | Built-in | Built-in |
-| File conflict prevention | **Ownership guard** | DB permissions | Isolated devboxes | No | No |
-| Database required | **No** | Postgres (35+ tables) | Internal | No | Optional |
-| State format | **Markdown (git)** | Postgres | Internal DB | Python objects | State graph |
-| Agent runtime | **Any CLI agent** | Any CLI agent | Goose fork | CrewAI only | LangChain only |
-| Coding-specific | **Yes** | Yes | Yes | General purpose | General purpose |
-| Available to public | **Yes** | Self-hosted | No | Yes | Yes |
+| Feature | Stajyer | Paperclip | Parallel Code | Emdash (YC W26) | Composio | Stripe Minions |
+|---------|---------|-----------|---------------|-----------------|----------|----------------|
+| Open source | **MIT** | MIT | Yes | Yes | Yes | No (internal) |
+| Setup time | **5 min** | 15+ min | ~10 min | ~10 min | ~10 min | N/A |
+| Auto-continue | **Yes** | Heartbeat | No | No | No | Yes |
+| File conflict prevention | **Ownership guard** | DB permissions | Git worktrees | Git worktrees | Git worktrees | Isolated devboxes |
+| Task lifecycle | **Queue + dispatch** | Issues + approvals | No | No | Partial | Yes |
+| Database required | **No** | Postgres (35+ tables) | No | No | No | Internal |
+| State format | **Markdown (git)** | Postgres | None | None | None | Internal DB |
+| Cross-tool agents | **Claude + Codex + Cursor** | Claude + Codex + Cursor | Claude + Codex + Gemini | Any provider | Any agent | Goose fork only |
+
+> **The key difference:** Worktree tools (Parallel Code, Emdash) isolate agents but don't manage them. Stajyer adds auto-continue, ownership guards, and task lifecycle — all without a database.
 
 ### Single AI Agents (what Stajyer orchestrates)
 
-| Agent | By | Open Source | Stajyer Adapter |
-|-------|-----|-----------|-----------------|
-| Claude Code | Anthropic | Source-available | **Supported** |
-| Codex CLI | OpenAI | Apache 2.0 | **Supported** |
-| Cursor | Anysphere | No | **Supported** |
-| Aider | Paul Gauthier | Apache 2.0 | Planned |
-| Cline | Community | Apache 2.0 | Planned |
-| OpenHands | All Hands AI | MIT | Planned |
-| Goose | Block | Apache 2.0 | Planned |
+| Agent | By | Open Source | Multi-Agent | Stajyer Adapter |
+|-------|----|-----------|-------------|-----------------|
+| Claude Code | Anthropic | Source-available | Agent Teams (Claude only) | **Supported** |
+| Codex CLI | OpenAI | Open source | Experimental (Codex only) | **Supported** |
+| Cursor | Anysphere | No | Automations (Cursor only) | **Supported** |
+| Aider | Paul Gauthier | Apache 2.0 | No | Planned |
+| Cline | Community | Apache 2.0 | No | Planned |
+| OpenHands | All Hands AI | MIT (65k+ stars) | Task delegation | Planned |
+| Goose | Block | Apache 2.0 (29k+ stars) | No | Planned |
 
-> Stajyer doesn't replace these agents — it orchestrates them. Run 3 Claude Code instances, or mix Claude Code + Codex + Cursor on the same project.
+> Stajyer doesn't replace these agents — it orchestrates them. Each agent listed above has its own multi-agent story, but they only orchestrate *themselves*. Stajyer orchestrates them *together*.
 
 ## The Experiment
 
